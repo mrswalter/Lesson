@@ -23,3 +23,15 @@ resource "aws_dynamodb_table" "table" {
     Name = var.dynamodb_table_tags["Name"]
 }
 }
+
+
+terraform {
+  backend "s3" {
+    bucket         = "state-storage-35"
+    key            = "state/terraform.tfstate"
+    region         = "us-east-1"
+    dynamodb_table = "State-Lock-35"
+    encrypt        = true
+  }
+}
+
