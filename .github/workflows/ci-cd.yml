@@ -40,9 +40,9 @@ jobs:
       - name: Terraform Plan
         run: terraform plan
 
-      - name: Terraform Apply (Auto-approve on push to master)
-        if: github.ref == 'refs/heads/master'
-        run: terraform apply -auto-approve
-      # - name: Terraform Apply (Auto-approve on push to main)
-      #   if: github.ref == 'refs/heads/main'
+      # - name: Terraform Apply (Auto-approve on push to master)
+      #   if: github.ref == 'refs/heads/master'
       #   run: terraform apply -auto-approve
+      - name: Terraform destroy (Auto-approve on push to master)
+        if: github.ref == 'refs/heads/master'
+        run: terraform destroy -auto-approve
