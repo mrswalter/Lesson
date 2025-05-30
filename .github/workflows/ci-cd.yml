@@ -1,14 +1,20 @@
-name: Terraform Apply
+name: Terraform Deploy or Destroy
 
 on:
   push:
     branches:
       - master
   pull_request:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Choose what to do: "apply" or "destroy"'
+        required: true
+        default: 'apply'
 
 jobs:
   terraform:
-    name: 'Terraform Plan and Apply'
+    name: 'Terraform Apply or Destroy'
     runs-on: ubuntu-latest
 
     env:
@@ -40,7 +46,14 @@ jobs:
       - name: Terraform Plan
         run: terraform plan
 
-      - name: Terraform Apply (Auto-approve on push to master)
-        if: github.ref == 'refs/heads/master'
-        run: terraform apply -auto-approve
-      
+      - name: Terraform Apply or Destroy
+        if: ${{ github.event.inputs.action == 'apply' || github.event.inputs.action == 'destroy' }}
+        run: |
+          if [ "${{ github.event.inputs.action }}" == "apply" ]; then
+            terraform apply -auto-approve
+          elif [ "${{ github.event.inputs.action }}" == "destroy" ]; then
+            terraform destroy -auto-approve
+          else
+            echo "Invalid action input. Must be 'apply' or 'destroy'."
+            exit 1
+          fi
