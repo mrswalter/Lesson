@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-      - main
   pull_request:
 
 jobs:
@@ -44,6 +43,6 @@ jobs:
       - name: Terraform Apply (Auto-approve on push to master)
         if: github.ref == 'refs/heads/master'
         run: terraform apply -auto-approve
-      - name: Terraform Apply (Auto-approve on push to main)
-        if: github.ref == 'refs/heads/main'
-        run: terraform apply -auto-approve
+      # - name: Terraform Apply (Auto-approve on push to main)
+      #   if: github.ref == 'refs/heads/main'
+      #   run: terraform apply -auto-approve
