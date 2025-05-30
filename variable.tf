@@ -8,7 +8,7 @@ variable "bucket_name" {
 variable "dynamodb_table_name" {
   description = "The name of the DynamoDB table for state locking."
   type        = string
-  default     = "state-lock-34"
+  default     = "State-lock-34"
 }
 
 
@@ -26,6 +26,6 @@ variable "dynamodb_table_tags" {
   description = "Tags to apply to the DynamoDB table."
   type        = map(string)
   default     = {
-    Name = "state-lock-34"
+    Name = "State-lock-34"
   }
 }
