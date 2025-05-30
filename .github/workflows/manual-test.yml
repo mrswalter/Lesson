@@ -1,0 +1,15 @@
+name: Manual Test Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Choose an action (apply or destroy)'
+        required: true
+        default: 'apply'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "You chose: ${{ github.event.inputs.action }}"
