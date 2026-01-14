@@ -1,0 +1,18 @@
+name: Terraform Deploy or Destroy
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Type "apply" or "destroy"'
+        required: true
+        default: 'apply'
+
+jobs:
+  terraform:
+    name: Terraform Apply or Destroy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print selected action
+        run: echo "You selected: ${{ github.event.inputs.action }}"
